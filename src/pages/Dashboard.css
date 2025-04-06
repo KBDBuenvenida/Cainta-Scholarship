@@ -1,0 +1,241 @@
+/* Dashboard.css */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Dark Mode Variables */
+:root {
+    --bg-light: #f9f9f9;
+    --text-light: #333;
+    --card-light: #ffdf47;
+    --bg-dark: #121212;
+    --text-dark: #f5f5f5;
+    --card-dark: #2c2c2c;
+    --sidebar-gradient-light: linear-gradient(to top, #001f8f, #0040ff);
+    --header-gradient-light: linear-gradient(to left, #001f8f, #0040ff);
+    --sidebar-gradient-dark: linear-gradient(to top, #000a30, #001a66);
+    --header-gradient-dark: linear-gradient(to left, #000a30, #001a66);
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dashboard.dark {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+.header {
+    background: var(--header-gradient-light);
+    color: white;
+    padding: 15px 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    z-index: 1;
+    transition: background 0.3s ease;
+}
+
+.dashboard.dark .header {
+    background: var(--header-gradient-dark);
+}
+
+.header img {
+    height: 40px;
+    width: 40px;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+}
+
+.sidebar {
+    width: 70px;
+    background: var(--sidebar-gradient-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    height: 100vh;
+    transition: background 0.3s ease;
+}
+
+.dashboard.dark .sidebar {
+    background: var(--sidebar-gradient-dark);
+}
+
+.sidebar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.sidebar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.sidebar-item.active {
+    background-color: rgba(255, 255, 255, 0.3); 
+    font-weight: bold;
+}
+
+.sidebar-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-item img {
+    width: 35px;      
+    height: 35px;        
+    object-fit: contain;    
+    margin-bottom: 4px;
+    display: block;
+}
+
+.sidebar-item span {
+    margin-top: 4px;
+    text-align: center;
+    display: block;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+.date-section {
+    margin-bottom: 20px;
+}
+
+.date-label {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 5px;
+}
+
+.card {
+    background-color: var(--card-light);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard.dark .card {
+    background-color: var(--card-dark);
+}
+
+/* Settings Page Styles */
+.settings-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.settings-header {
+    font-size: 24px;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.dashboard.dark .settings-header {
+    border-bottom: 1px solid #444;
+}
+
+.settings-section {
+    margin-bottom: 30px;
+}
+
+.settings-section-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.settings-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.dashboard.dark .settings-option {
+    background-color: #1e1e1e;
+    box-shadow: 0 1px 3px rgba(255,255,255,0.05);
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #0040ff;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #0040ff;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}

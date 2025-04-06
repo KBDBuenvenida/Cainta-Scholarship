@@ -1,0 +1,54 @@
+.user-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 40px;
+    margin-top: 10px;
+  }
+
+  .user-profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #001f8f;
+  }  
+  
+  .field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .field label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #001f8f;
+  }
+  
+  .field input,
+  .field select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .save-button {
+    grid-column: span 2;
+    margin-top: 10px;
+    background-color: #001f8f;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 150px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .save-button:hover {
+    background-color: #0035d4;
+  }
+  
