@@ -63,7 +63,7 @@
 }
 
 .sidebar {
-    width: 70px;
+    width: 75px; /* Slightly wider sidebar */
     background: var(--sidebar-gradient-light);
     display: flex;
     flex-direction: column;
@@ -95,6 +95,7 @@
     color: white;
     text-decoration: none;
     transition: background 0.3s;
+    cursor: pointer;
 }
 
 .sidebar-item.active {
@@ -118,6 +119,15 @@
     margin-top: 4px;
     text-align: center;
     display: block;
+    font-size: 9px; /* Even smaller font size */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%; /* Full width */
+    max-width: 100%; /* Allow text to use full width */
+    padding: 0;
+    line-height: 1;
+    letter-spacing: -0.3px; /* Tighter letter spacing */
 }
 
 .content {

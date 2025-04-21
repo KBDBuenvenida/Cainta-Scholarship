@@ -1,9 +1,9 @@
 import React from 'react';
-import './Dashboard.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import '../pages/Dashboard.css';
 
-const Applications = () => {
+function MainLayout({ children }) {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -51,15 +51,11 @@ const Applications = () => {
         </div>
 
         <div className="content">
-          <h1>Applications</h1>
-          <div className="card">
-            <h2>Scholarship Applications</h2>
-            <p>This section will display a list of scholarship applications.</p>
-          </div>
+          {children}
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default Applications;
+export default MainLayout;

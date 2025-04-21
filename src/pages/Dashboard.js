@@ -1,8 +1,17 @@
 import React from 'react';
 import './Dashboard.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <div className="dashboard">
       <div className="header">
@@ -10,36 +19,36 @@ const Dashboard = () => {
         Cainta Youth Development Office Scholarship Management System
       </div>
       <div className="container">
-      <div className="sidebar">
-  <div className="sidebar-item">
-    <img src="/icons/home.png" alt="Home" />
-    <span>Home</span>
-  </div>
-  <NavLink
-  to="/user-info"
-  className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
-  <img src="/icons/user.png" alt="User" />
-  <span>User</span>
-</NavLink>
-  <NavLink
-  to="/chat"
-  className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
-  <img src="/icons/chat.png" alt="Chat" />
-  <span>Chat</span>
-</NavLink>
-  <div className="sidebar-item">
-    <img src="/icons/mail.png" alt="Mail" />
-    <span>Mail</span>
-  </div>
-  <div className="sidebar-item">
-    <img src="/icons/settings.png" alt="Settings" />
-    <span>Settings</span>
-  </div>
-  <div className="sidebar-item">
-    <img src="/icons/logout.png" alt="Logout" />
-    <span>Logout</span>
-  </div>
-</div>
+        <div className="sidebar">
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
+            <img src="/icons/home.png" alt="Home" />
+            <span>Home</span>
+          </NavLink>
+          <NavLink
+            to="/user-info"
+            className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
+            <img src="/icons/user.png" alt="User" />
+            <span>User</span>
+          </NavLink>
+          <NavLink
+            to="/chat"
+            className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
+            <img src="/icons/chat.png" alt="Chat" />
+            <span>Chat</span>
+          </NavLink>
+          <NavLink
+            to="/documents"
+            className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
+            <img src="/icons/documents.png" alt="Documents" />
+            <span>Documents</span>
+          </NavLink>
+          <div className="sidebar-item" onClick={handleLogout}>
+            <img src="/icons/logout.png" alt="Logout" />
+            <span>Logout</span>
+          </div>
+        </div>
 
         <div className="content">
           <div className="date-section">

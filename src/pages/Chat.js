@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Dashboard.css';
 import './Chat.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 function Chat() {
   const [messages, setMessages] = useState([
@@ -11,6 +12,14 @@ function Chat() {
   ]);
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef(null);
+
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   // Scroll to bottom whenever messages change
   useEffect(() => {
@@ -80,18 +89,12 @@ function Chat() {
             <span>Chat</span>
           </NavLink>
           <NavLink
-            to="/mail"
+            to="/documents"
             className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
-            <img src="/icons/mail.png" alt="Mail" />
-            <span>Mail</span>
+            <img src="/icons/documents.png" alt="Documents" />
+            <span>Documents</span>
           </NavLink>
-          <NavLink
-            to="/settings"
-            className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
-            <img src="/icons/settings.png" alt="Settings" />
-            <span>Settings</span>
-          </NavLink>
-          <div className="sidebar-item">
+          <div className="sidebar-item" onClick={handleLogout}>
             <img src="/icons/logout.png" alt="Logout" />
             <span>Logout</span>
           </div>

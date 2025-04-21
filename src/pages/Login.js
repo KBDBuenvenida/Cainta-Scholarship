@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ import this
-import './Login.css';
+import { Link, useNavigate } from 'react-router-dom';
+import '../css/Auth.css';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
-  const navigate = useNavigate(); // ✅ hook for navigation
+  const navigate = useNavigate();
+  const { login } = useAuth(); // Get the login function from auth context
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setError('');
 
     if (email === 'admin@example.com' && password === 'admin123') {
-      // ✅ redirect to dashboard
+      // Call the login function from auth context
+      login({ email, name: 'Admin User' });
+      // Redirect to dashboard
       navigate('/dashboard');
     } else {
-      alert('Invalid credentials. Try admin@example.com / admin123');
+      setError('Invalid credentials. Try admin@example.com / admin123');
     }
   };
 
@@ -30,6 +36,7 @@ const Login = () => {
       <div className="main-content">
         <div className="login-container">
           <h2>Login</h2>
+          {error && <div className="error-message">{error}</div>}
           <form onSubmit={handleLogin}>
             <input
               type="email"
@@ -47,8 +54,8 @@ const Login = () => {
             />
             <button type="submit">Login</button>
             <div className="links">
-              <a href="#">Register for free</a>
-              <a href="#">Forgot Password?</a>
+              <Link to="/register">Register for free</Link>
+              <Link to="/forgot-password">Forgot Password?</Link>
             </div>
           </form>
         </div>

@@ -1,54 +1,378 @@
+/* General styling enhancements */
+:root {
+    --primary-color: #4a90e2;
+    --primary-hover: #357abf;
+    --text-dark: #2a3f54;
+    --text-light: #777;
+    --border-light: #eaeaea;
+    --shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
 .user-fields {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px 40px;
     margin-top: 10px;
-  }
+}
 
-  .user-profile-pic {
-    width: 120px;
-    height: 120px;
+.user-profile-pic {
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #001f8f;
-  }  
-  
-  .field {
+    border: 5px solid white;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.user-profile-pic:hover {
+    transform: scale(1.03);
+}
+
+.field {
     display: flex;
     flex-direction: column;
     width: 100%;
-  }
-  
-  .field label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #001f8f;
-  }
-  
-  .field input,
-  .field select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.field label {
+    margin-bottom: 8px;
     font-size: 14px;
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.field input,
+.field select {
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
     width: 100%;
     max-width: 300px;
-  }
-  
-  .save-button {
-    grid-column: span 2;
-    margin-top: 10px;
-    background-color: #001f8f;
+    transition: var(--transition);
+    background-color: #f9f9f9;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+    background-color: white;
+}
+
+.field input:hover,
+.field select:hover {
+    border-color: #bbb;
+}
+
+.save-button, .cancel-button {
+    margin-top: 15px;
+    padding: 12px 24px;
+    width: 160px;
+    height: 48px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    box-sizing: border-box;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+}
+
+.save-button {
+    background: linear-gradient(135deg, #4a90e2, #357abf);
     color: white;
     border: none;
-    padding: 10px;
-    width: 150px;
-    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+}
+
+.save-button:hover {
+    background: linear-gradient(135deg, #357abf, #2a6db0);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(74, 144, 226, 0.4);
+}
+
+.save-button:active {
+    transform: translateY(1px);
+}
+
+.cancel-button {
+    background-color: white;
+    color: #555;
+    border: 1px solid #ddd;
+}
+
+.cancel-button:hover {
+    background-color: #f5f5f5;
+    color: #333;
+    border-color: #ccc;
+}
+
+/* User Profile Styling */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.profile-header h2 {
+    font-size: 30px;
+    color: var(--text-dark);
+    margin: 0;
+    font-weight: 600;
+    position: relative;
+}
+
+.profile-header h2:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -15px;
+    width: 50px;
+    height: 3px;
+    background: var(--primary-color);
+}
+
+.edit-profile-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 15px;
     cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .save-button:hover {
-    background-color: #0035d4;
-  }
-  
+    transition: var(--transition);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit-profile-btn:before {
+    content: '✏️';
+    font-size: 14px;
+}
+
+.edit-profile-btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-profile-container {
+    display: flex;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+/* Profile Sidebar */
+.profile-sidebar {
+    width: 280px;
+    background: linear-gradient(to bottom, #f8f9fa, #eef2f7);
+    padding: 35px 25px;
+    text-align: center;
+    border-right: 1px solid var(--border-light);
+}
+
+.profile-image-container {
+    position: relative;
+    margin-bottom: 25px;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 25px;
+}
+
+.change-photo-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 2;
+}
+
+.change-photo-btn:hover {
+    background-color: black;
+    transform: translateY(-2px);
+}
+
+.profile-status {
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.profile-status h3 {
+    font-size: 20px;
+    margin: 10px 0 8px;
+    color: var(--text-dark);
+}
+
+.profile-status p {
+    font-size: 14px;
+    color: var(--text-light);
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.status-badge.active {
+    background: linear-gradient(to right, #e3f7ed, #d1f5e0);
+    color: #28a745;
+}
+
+.status-badge.inactive {
+    background: linear-gradient(to right, #feecf0, #fdd9e5);
+    color: #dc3545;
+}
+
+.status-badge.graduated {
+    background: linear-gradient(to right, #e6f3ff, #d5eaff);
+    color: #4a90e2;
+}
+
+/* Profile Details */
+.profile-details {
+    flex: 1;
+    padding: 35px;
+}
+
+.profile-section {
+    margin-bottom: 35px;
+    background-color: #fafafa;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+}
+
+.profile-section:hover {
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.profile-section h3 {
+    font-size: 19px;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+}
+
+.profile-section h3:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: a0px;
+    height: 2px;
+    background: var(--primary-color);
+}
+
+.fields-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.field.full-width {
+    grid-column: span 2;
+}
+
+.field p {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+    padding: 8px 0;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 992px) {
+    .user-profile-container {
+        flex-direction: column;
+    }
+
+    .profile-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #eaeaea;
+        padding: 20px;
+    }
+
+    .fields-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .field.full-width {
+        grid-column: span 1;
+    }
+
+    .profile-section {
+        padding: 20px 15px;
+    }
+
+    .action-buttons {
+        justify-content: center;
+    }
+}
+
+/* Additional animations and effects */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-section {
+    animation: fadeIn 0.4s ease-out;
+    animation-fill-mode: both;
+}
+
+.profile-section:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.profile-section:nth-child(3) {
+    animation-delay: 0.2s;
+}
