@@ -7,6 +7,9 @@ import Applications from './pages/Applications';
 import Chat from './pages/Chat';
 import UserInfo from './pages/Userinfo.js';
 import Documents from './pages/Documents.js';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminSubmissions from './pages/admin/AdminSubmissions';
+import AdminUsers from './pages/admin/AdminUsers';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
 // Protected route component
@@ -24,11 +27,27 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+// Admin route component
+const AdminRoute = ({ children }) => {
+  const { isAuthenticated, isAdmin, loading } = useAuth();
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
+  if (!isAuthenticated || !isAdmin) {
+    return <Navigate to="/" />;
+  }
+  
+  return children;
+};
+
 function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      {/* User routes */}
       <Route path="/dashboard" element={
         <ProtectedRoute>
           <Dashboard />
@@ -53,6 +72,23 @@ function AppRoutes() {
         <ProtectedRoute>
           <Documents />
         </ProtectedRoute>
+      } />
+      
+      {/* Admin routes */}
+      <Route path="/admin/dashboard" element={
+        <AdminRoute>
+          <AdminDashboard />
+        </AdminRoute>
+      } />
+      <Route path="/admin/submissions" element={
+        <AdminRoute>
+          <AdminSubmissions />
+        </AdminRoute>
+      } />
+      <Route path="/admin/users" element={
+        <AdminRoute>
+          <AdminUsers />
+        </AdminRoute>
       } />
     </Routes>
   );

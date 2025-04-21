@@ -106,3 +106,21 @@
   color: white;
   text-decoration: none;
 }
+
+/* Sample Credentials */
+.sample-credentials {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.sample-credentials p {
+  margin: 5px 0;
+}
+
+.sample-credentials strong {
+  color: #fff;
+}

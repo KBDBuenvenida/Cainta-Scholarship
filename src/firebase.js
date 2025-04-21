@@ -1,21 +1,26 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import 'firebase/compat/storage';
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Replace with your actual Firebase project configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB1F4HHyxotnYZVBtDuJkEQ_Qy9LO9cjyo",
-  authDomain: "cainta-scholarship.firebaseapp.com",
-  projectId: "cainta-scholarship",
-  storageBucket: "cainta-scholarship.firebasestorage.app",
-  messagingSenderId: "765085465395",
-  appId: "1:765085465395:web:bac43bdafc54d825105c46",
-  measurementId: "G-MK7V9RY6SN"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY || "YOUR_API_KEY",
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || "YOUR_AUTH_DOMAIN",
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || "YOUR_PROJECT_ID",
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || "YOUR_STORAGE_BUCKET",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || "YOUR_MESSAGING_SENDER_ID",
+  appId: process.env.REACT_APP_FIREBASE_APP_ID || "YOUR_APP_ID"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+// Export Firebase services
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+export const storage = firebase.storage();
+export default firebase;
