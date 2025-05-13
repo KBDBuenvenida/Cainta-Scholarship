@@ -1,0 +1,9 @@
+{
+    "accuracy": 93.33,
+    "error_rate": 6.67,
+    "training_time_sec": 0.0938,
+    "inference_latency_sec": 0.000319,
+    "avg_cpu_usage_percent": 34.33,
+    "ram_usage_mb": 152.39,
+    "model_size_kb": 112.37
+}

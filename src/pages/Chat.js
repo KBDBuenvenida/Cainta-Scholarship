@@ -3,66 +3,7 @@ import './Dashboard.css';
 import './Chat.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-
-// Scholarship chatbot logic
-const scholarshipResponses = {
-  "apply_scholarship": "You can apply by filling out the online application form.",
-  "scholarship_requirements": "The requirements include your grades, ID, and application letter.",
-  "scholarship_deadline": "The deadline for applications is every July 15.",
-  "check_availability": "Yes, the scholarship is currently open.",
-  "reapplication_policy": "Yes, you can reapply next semester if rejected.",
-  "course_coverage": "The scholarship covers all undergraduate programs.",
-  "eligibility_level": "It's open to high school graduates and college students.",
-  "document_submission": "Submit your documents via the online portal or in-person.",
-  "scholarship_benefits": "The grant provides PHP 5,000 per semester.",
-  "grade_requirement": "You must maintain at least a 2.5 GPA.",
-  "transferee_eligibility": "Yes, transferees can apply with additional documents.",
-  "contact_info": "You can contact the scholarship office at info@scholar.org.",
-  "interview_info": "There is a short interview after document review.",
-  "renewal_process": "Submit your grades every semester to renew.",
-  "failure_policy": "If you fail a subject, you'll be on probation.",
-  "application_edit": "Yes, you can edit your application before the deadline."
-};
-
-// Keywords to match user queries with intents
-const intentKeywords = {
-  "apply_scholarship": ["apply", "how to apply", "application", "start application", "registration"],
-  "scholarship_requirements": ["requirements", "documents", "need", "required", "paperwork", "submit"],
-  "scholarship_deadline": ["deadline", "due date", "last day", "when to apply", "until when"],
-  "check_availability": ["available", "open", "accepting", "active", "current"],
-  "reapplication_policy": ["reapply", "try again", "rejected", "denied", "second chance"],
-  "course_coverage": ["course", "program", "degree", "major", "field of study"],
-  "eligibility_level": ["eligible", "qualify", "high school", "college", "year level", "freshman"],
-  "document_submission": ["submit", "upload", "send", "documents", "papers", "requirements"],
-  "scholarship_benefits": ["benefits", "how much", "amount", "cover", "financial support", "grant"],
-  "grade_requirement": ["grade", "gpa", "maintain", "academic", "performance"],
-  "transferee_eligibility": ["transfer", "transferee", "different school", "change school"],
-  "contact_info": ["contact", "email", "phone", "office", "reach"],
-  "interview_info": ["interview", "meeting", "talk", "panel"],
-  "renewal_process": ["renew", "renewal", "continue", "next semester", "maintain"],
-  "failure_policy": ["fail", "failing", "failed", "drop", "probation"],
-  "application_edit": ["edit", "change", "modify", "update", "application"]
-};
-
-// Get response from chatbot
-function getChatbotResponse(userInput) {
-  const text = userInput.toLowerCase();
-  
-  // Check for greetings
-  const greetings = ["hi", "hello", "hey", "good morning", "good afternoon", "good evening"];
-  if (greetings.some(greeting => text.includes(greeting))) {
-    return "Hello! How can I assist you with your scholarship concern?";
-  }
-  
-  // Find matching intent
-  for (const [intent, keywords] of Object.entries(intentKeywords)) {
-    if (keywords.some(keyword => text.includes(keyword.toLowerCase()))) {
-      return scholarshipResponses[intent];
-    }
-  }
-  
-  return "I'm not sure I understand. Could you please ask me about scholarship-related topics?";
-}
+import { getChatbotResponse } from '../utils/scholarshipChatbot';
 
 function Chat() {
   const [messages, setMessages] = useState([
@@ -109,28 +50,47 @@ function Chat() {
 
     const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     
-    setMessages([
-      ...messages,
-      { id: messages.length + 1, sender: 'You', content: newMessage, timestamp }
+    // Add user message to chat
+    setMessages(prevMessages => [
+      ...prevMessages,
+      { id: prevMessages.length + 1, sender: 'You', content: newMessage, timestamp }
     ]);
     
+    // Clear input and show typing indicator
+    const userQuery = newMessage; // Store the user query before clearing
     setNewMessage('');
     setIsTyping(true);
     
     // Get response from the scholarship chatbot after a short delay
     setTimeout(() => {
-      const botResponse = getChatbotResponse(newMessage);
-      
-      setMessages(prevMessages => [
-        ...prevMessages,
-        { 
-          id: prevMessages.length + 1, 
-          sender: 'Admin', 
-          content: botResponse, 
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        }
-      ]);
-      setIsTyping(false);
+      try {
+        // Use a try-catch to prevent any errors in the chatbot from breaking the UI
+        const botResponse = getChatbotResponse(userQuery);
+        
+        setMessages(prevMessages => [
+          ...prevMessages,
+          { 
+            id: prevMessages.length + 1, 
+            sender: 'Admin', 
+            content: botResponse, 
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          }
+        ]);
+      } catch (error) {
+        console.error("Error getting chatbot response:", error);
+        // Fallback response in case of error
+        setMessages(prevMessages => [
+          ...prevMessages,
+          { 
+            id: prevMessages.length + 1, 
+            sender: 'Admin', 
+            content: "I'm sorry, I encountered an error processing your request. Please try again with a different question.",
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          }
+        ]);
+      } finally {
+        setIsTyping(false);
+      }
     }, 1000);
   };
 
@@ -175,8 +135,8 @@ function Chat() {
         <div className="content">
           <div className="chat-container">
             <div className="chat-header">
-              <h1>Scholarship Support Chat</h1>
-              <p>Get help with your scholarship application and questions</p>
+              <h1>AI Scholarship Assistant</h1>
+              <p>Get help with your scholarship questions using our advanced AI</p>
             </div>
             
             <div className="chat-messages" ref={chatMessagesRef}>
