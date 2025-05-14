@@ -53,7 +53,7 @@ const Login = () => {
       
       <div className="header">
         <img src="/cydo.png" alt="Cainta Logo" />
-        <h1>Cainta Scholarship Portal</h1>
+        <h1>Cainta Youth Development Office Scholarship Management System</h1>
       </div>
       
       <div className="main-content">
